@@ -1,7 +1,12 @@
+:guid: %guid%
+:user: devops
+:user_password: %ssh_password%
+:numbered:
+:lab_name: Containerize Application
+
 = Building an Application with rpms
 
 == Downloading the UBI
-
 In this lab, you will be installing software into the container 
 image running as an interactive application. To do this you will
 need `yum`, but do not need `systemd` for managing services within the
@@ -14,12 +19,11 @@ Using the "buildah from" command will download and meld the container image. Thi
 image from Red Hat's registry.
 
 +
-[source,sh,role=execute]
+[source,bash,role=execute]
 ----
 buildah from registry.access.redhat.com/ubi9/ubi
 ----
 
-[#repositories]
 == Installing Repositories
 In this lab, you are going to containerize a software package that is already
 packaged in RPM format and stored in the Extra Packages for Enterprise Linux
@@ -39,7 +43,7 @@ the container image.  Lastly, you are providing the `yum` command to install a
 package that defines all of the repositories from EPEL, `epel-release-latest-9`.
 
 +
-[source,bash]
+[source,bash,role=execute]
 ----
 buildah run ubi-working-container -- yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 ----
@@ -48,7 +52,7 @@ buildah run ubi-working-container -- yum -y install https://dl.fedoraproject.org
 . You can verify that the above command did not install the RPM on the host system.
 
 +
-[source,bash]
+[source,bash,role=execute]
 ----
 rpm -q epel-release
 ----
@@ -58,7 +62,6 @@ individual `.repo` files, you could use the `buildah copy` command to copy
 files from the host operating system into the container image.  You will see
 an example of using `buildah copy` later in this lab.
 
-[#software]
 == Installing Software
 
 
@@ -67,7 +70,7 @@ another `yum install`, within the container, to install the target
 software: `moon-buggy`.
 
 +
-[source,bash]
+[source,bash,role=execute]
 ----
 buildah run ubi-working-container -- yum -y install moon-buggy
 ----
@@ -81,7 +84,7 @@ the `buildah` command to commit the working container to an image called:
 `moon-buggy`.
 
 +
-[source,bash]
+[source,bash,role=execute]
 ----
 buildah commit ubi-working-container moon-buggy
 ----
@@ -90,7 +93,7 @@ buildah commit ubi-working-container moon-buggy
 . The output of `podman image list` should confirm the image was created.
 
 +
-[source,bash]
+[source,bash,role=execute]
 ----
 podman image list
 ----
@@ -100,14 +103,14 @@ podman image list
 
 Now the software has been installed and a new container image created.  It is
 time to spawn a runtime of the container image and validate the software.  The
-software we are using is a command line command.  
+software we are using is a commandline command.  
 
 . When you `run` the container,
 it will be in interactive (`-it`) mode, based on the `moon-buggy` container
 image and the command run interactively will be `/usr/bin/moon-buggy`.
 
 +
-[source,bash]
+[source,bash,role=execute]
 ----
 podman run -it moon-buggy /usr/bin/moon-buggy
 ----
@@ -143,7 +146,7 @@ Alternatively, you can use `podman` to kill the running container from
 *Terminal 2*.
 
 +
-[source,bash]
+[source,bash,role=execute]
 ----
 podman kill $(podman ps | grep -v CONTAINER | cut -f1 -d" " )
 ----
