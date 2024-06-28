@@ -6,8 +6,8 @@ nav:
 
 asciidoc:
   attributes:
-    lab_name: "I'm the lab_name var"
-    release-version: master
+    lab_name: "Containerize Your Application"
+    release-version: main
     page-pagination: true
     my_var: "foo"
     guid: my-guid
