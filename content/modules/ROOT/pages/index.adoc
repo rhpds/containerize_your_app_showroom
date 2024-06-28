@@ -28,13 +28,13 @@ Deploy mirrored terminal window:
 * Clicking the command code blocks inside the instructions will automatically push them into the terminal window.
 
 === Lab Access
-. You can complete this lab on the showroom terminal provided.
-. If you prefer your own terminal, you access your lab environment as *{user}* with password *{ssh_password}* with the following command.
+* You can complete this lab on the showroom terminal provided.
+* If you prefer your own terminal, you access your lab environment as *{user}* with password *{ssh_password}* with the following command.
 +
 [source,init,role=execute,subs=attributes+]
 ----
 {ssh_command}
 ----
 
-. All steps of this lab are to be completed as the *{user}* user.
+* All steps of this lab are to be completed as the *{user}* user.
 
